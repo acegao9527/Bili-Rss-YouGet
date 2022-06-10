@@ -2,7 +2,7 @@
 export LC_ALL=C
 you=/var/services/homes/MyAdmin/.local/bin/you-get
 confdir=/volume1/docker/bili-rss-get
-downloaddir=/volume3/迅雷/下载B站
+downloaddir=/volume2/Clip/BiliDownload
 myrss=http://192.168.31.3:1200/bilibili/fav/1924937/1622036037
 
 cookiedir=$confdir/cookies.txt
@@ -23,7 +23,10 @@ fi
 
 #获得上一个视频的时间戳
 olddate=$(cat $datedir)
-# 当最新一条的时间戳小于上条保存的时间戳，说明是以前的下载过的
+echo "pudate:$pubdate"
+echo "olddate:$olddate"
+
+# 当最新一条的时间戳小于等于上条保存的时间戳，说明是以前的下载过的
 if [ $pubdate -le $olddate ];then
     echo $(date '+%Y-%m-%d %H:%M:%S') "exit: already download" >> $logdir
     exit 8
@@ -50,3 +53,7 @@ if [ $? -eq 0 ];then
 fi
 echo "---------------------下载成功"
 echo $(date '+%Y-%m-%d %H:%M:%S') "success: download video $name" >> $logdir
+
+cd $downloaddir
+rm *.xml
+rm *竖屏*.mp4

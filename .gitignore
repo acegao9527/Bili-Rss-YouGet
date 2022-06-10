@@ -1,0 +1,4 @@
+.DS_Store
+# 忽略名称中末尾为eaDir的文件夹
+@eaDir
+\#recycle
